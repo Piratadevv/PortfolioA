@@ -1,6 +1,6 @@
 # My Portfolio Website
 
-This is my personal portfolio website, created to introduce myself. It showcases my journey as a student, my growing skill set, and some of the projects I've worked on.
+This is my personal portfolio website, created to introduce myself. It showcases my journey as a student, my growing skills, and some of the projects I've worked on.
 
 ## About
 
