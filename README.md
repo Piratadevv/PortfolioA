@@ -26,11 +26,11 @@ Here are some of the beginner projects featured in my portfolio:
 
 1. **DevJourney (Basic)**  
    - **Description**: My first web project, built using basic HTML and CSS.  
-   - **GitHub**: [DevJourney-Basic](https://github.com/DevSavvyX/DevJourney-Basic.git)
+   - **GitHub**: [DevJourney-Basic](https://github.com/AdamBadkouk/DevJourney-Basic.git)
 
 2. **DevJourney (Bootstrap)**  
    - **Description**: An enhanced version of my first project, redesigned using Bootstrap for better structure and responsiveness.  
-   - **GitHub**: [DevJourney-Bootstrap](https://github.com/DevSavvyX/DevJourney-Bootstrap.git)
+   - **GitHub**: [DevJourney-Bootstrap](https://github.com/AdamBadkouk/DevJourney-Bootstrap.git)
 
 ## Contact
 
@@ -38,4 +38,4 @@ Feel free to reach out for feedback, advice, or collaboration:
 
 - **Email**: [badkoukadam@gmail.com](mailto:badkoukadam@gmail.com)
 - **LinkedIn**: [linkedin.com/in/adambadkouk/](https://linkedin.com/in/adambadkouk/)
-- **GitHub**: [DevSavvyX](https://github.com/DevSavvyX)
+- **GitHub**: [AdamBadkouk](https://github.com/AdamBadkouk)
