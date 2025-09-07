@@ -4,37 +4,40 @@ import { ChevronDown, Github, ExternalLink, Mail, User, MessageSquare, Linkedin,
 function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showResumeInfo, setShowResumeInfo] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
       const scrollPos = window.scrollY + 100;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
 
-      for (let i = 0; i < sections.length; i++) {
+      // Check if we're near the bottom of the page
+      const isNearBottom = scrollPos + windowHeight >= documentHeight - 50;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
           const isLastSection = i === sections.length - 1;
           
-          if (isLastSection) {
-            // For the last section (contact), check if we're past the previous section
-            if (scrollPos >= offsetTop) {
-              setActiveSection(section);
-              break;
-            }
-          } else {
-            // For other sections, use the normal logic
-            if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
-              setActiveSection(section);
-              break;
-            }
+          if (isLastSection && isNearBottom) {
+            // If we're near the bottom, always show contact as active
+            setActiveSection(section);
+            break;
+          } else if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
+            // Normal section detection
+            setActiveSection(section);
+            break;
           }
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call once on mount
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -49,6 +52,11 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleResumeClick = () => {
+    setShowResumeInfo(true);
+    setTimeout(() => setShowResumeInfo(false), 3000);
+  };
+
   const projects = [
     
     {
@@ -61,9 +69,9 @@ function App() {
   ];
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gradient-to-br from-gray-800 via-purple-800 to-indigo-800' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100'}`}>
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100'}`}>
       {/* Navbar */}
-      <nav className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-md border shadow-lg rounded-md px-8 py-3 transition-colors duration-300 ${isDarkMode ? 'bg-gray-800/20 border-gray-600/30' : 'bg-white/20 border-white/30'}`}>
+      <nav className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-md border shadow-lg rounded-md px-8 py-3 transition-colors duration-300 ${isDarkMode ? 'bg-slate-800/30 border-purple-500/30' : 'bg-white/20 border-white/30'}`}>
         <div className="flex items-center space-x-8">
           <div className="flex space-x-6">
             {[
@@ -78,20 +86,20 @@ function App() {
                 onClick={() => scrollToSection(id)}
                 className={`text-sm font-medium transition-all duration-200 px-3 py-1 rounded-full ${
                   activeSection === id 
-                    ? 'text-white bg-[#d0cede] shadow-md rounded-md' 
-                    : isDarkMode ? 'text-gray-300 hover:bg-gray-700/20' : 'text-gray-700 hover:bg-white/20'
+                    ? isDarkMode ? 'text-white bg-purple-600 shadow-md rounded-md' : 'text-white bg-[#d0cede] shadow-md rounded-md'
+                    : isDarkMode ? 'text-purple-200 hover:bg-purple-800/30' : 'text-gray-700 hover:bg-white/20'
                 }`}
               >
                 {label}
               </button>
             ))}
           </div>
-          <div className="w-px h-6 bg-gray-400 mx-2"></div>
+          <div className={`w-px h-6 mx-2 ${isDarkMode ? 'bg-purple-400/50' : 'bg-gray-400'}`}></div>
           <button
             onClick={toggleDarkMode}
             className={`p-2 rounded-md transition-all duration-200 ${
               isDarkMode 
-                ? 'text-yellow-400 hover:bg-gray-700/20' 
+                ? 'text-yellow-400 hover:bg-purple-800/30' 
                 : 'text-gray-700 hover:bg-white/20'
             }`}
           >
@@ -126,13 +134,33 @@ function App() {
                 onClick={() => scrollToSection('contact')}
                 className={`px-8 py-4 backdrop-blur-md border font-semibold rounded-md shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${
                   isDarkMode 
-                    ? 'bg-gray-700/20 border-gray-600/30 text-gray-300 hover:bg-gray-700/30' 
+                    ? 'bg-purple-800/30 border-purple-500/40 text-purple-100 hover:bg-purple-700/40' 
                     : 'bg-white/20 border-white/30 text-gray-700 hover:bg-white/30'
                 }`}
               >
                 Contact Me
               </button>
+              <button
+                onClick={handleResumeClick}
+                disabled
+                className={`px-8 py-4 backdrop-blur-md border font-semibold rounded-md shadow-lg opacity-50 cursor-not-allowed ${
+                  isDarkMode 
+                    ? 'bg-purple-800/20 border-purple-600/30 text-purple-300' 
+                    : 'bg-white/20 border-white/30 text-gray-500'
+                }`}
+              >
+                Download Resume
+              </button>
             </div>
+            {showResumeInfo && (
+              <div className={`mt-4 p-3 rounded-md text-center ${
+                isDarkMode 
+                  ? 'bg-amber-900/30 border border-amber-600/40 text-amber-200' 
+                  : 'bg-yellow-100 border border-yellow-300 text-yellow-800'
+              }`}>
+                Resume download is currently unavailable
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -149,7 +177,11 @@ function App() {
             </p>
           </div>
           
-          <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-8 shadow-lg">
+          <div className={`backdrop-blur-md border rounded-lg p-8 shadow-lg ${
+            isDarkMode 
+              ? 'bg-slate-800/40 border-purple-500/30' 
+              : 'bg-white/20 border-white/30'
+          }`}>
             <div className={`prose prose-lg max-w-none ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               <blockquote className="border-l-4 border-[#d0cede] pl-6 text-lg leading-relaxed">
               <p className="mb-4">
@@ -185,7 +217,11 @@ function App() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Frontend Development */}
-            <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6 shadow-lg h-56">
+            <div className={`backdrop-blur-md border rounded-lg p-6 shadow-lg h-56 ${
+              isDarkMode 
+                ? 'bg-slate-800/40 border-purple-500/30' 
+                : 'bg-white/20 border-white/30'
+            }`}>
               <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Frontend Development</h3>
               <div className="flex flex-wrap gap-2">
                 {['React', 'Next.js', 'Angular', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS' , 'Bootstrap'].map((skill, index) => (
@@ -200,7 +236,11 @@ function App() {
             </div>
 
             {/* Backend Development */}
-            <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6 shadow-lg h-56">
+            <div className={`backdrop-blur-md border rounded-lg p-6 shadow-lg h-56 ${
+              isDarkMode 
+                ? 'bg-slate-800/40 border-purple-500/30' 
+                : 'bg-white/20 border-white/30'
+            }`}>
               <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Backend Development</h3>
               <div className="flex flex-wrap gap-2">
                 {['Node.js', 'Express.js', 'Laravel', 'PHP', 'MongoDB', 'MySQL', 'REST APIs'].map((skill, index) => (
@@ -215,7 +255,11 @@ function App() {
             </div>
 
             {/* Programming Languages */}
-            <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6 shadow-lg h-56">
+            <div className={`backdrop-blur-md border rounded-lg p-6 shadow-lg h-56 ${
+              isDarkMode 
+                ? 'bg-slate-800/40 border-purple-500/30' 
+                : 'bg-white/20 border-white/30'
+            }`}>
               <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Programming Languages</h3>
               <div className="flex flex-wrap gap-2">
                 {['JavaScript', 'TypeScript', 'Python', 'C++', 'PHP'].map((skill, index) => (
@@ -230,7 +274,11 @@ function App() {
             </div>
 
             {/* Tools & Technologies */}
-            <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6 shadow-lg h-56">
+            <div className={`backdrop-blur-md border rounded-lg p-6 shadow-lg h-56 ${
+              isDarkMode 
+                ? 'bg-slate-800/40 border-purple-500/30' 
+                : 'bg-white/20 border-white/30'
+            }`}>
               <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Tools & Technologies</h3>
               <div className="flex flex-wrap gap-2">
                 {['Git', 'GitHub', 'GitLab', 'Docker', 'WSL', 'packet tracer', 'Postman', 'Figma'].map((skill, index) => (
@@ -254,7 +302,11 @@ function App() {
             </div>
 
             {/* Cybersecurity */}
-            <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6 shadow-lg h-56">
+            <div className={`backdrop-blur-md border rounded-lg p-6 shadow-lg h-56 ${
+              isDarkMode 
+                ? 'bg-slate-800/40 border-purple-500/30' 
+                : 'bg-white/20 border-white/30'
+            }`}>
               <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Cybersecurity</h3>
               <div className="flex flex-wrap gap-2">
                 {['Security Fundamentals', 'Network Security', 'Vulnerability Assessment', 'Security Best Practices'].map((skill, index) => (
@@ -269,7 +321,11 @@ function App() {
             </div>
 
             {/* Certifications & Badges */}
-            <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-6 shadow-lg h-56">
+            <div className={`backdrop-blur-md border rounded-lg p-6 shadow-lg h-56 ${
+              isDarkMode 
+                ? 'bg-slate-800/40 border-purple-500/30' 
+                : 'bg-white/20 border-white/30'
+            }`}>
               <h3 className={`text-xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Certifications & Badges</h3>
               <div className="flex flex-wrap gap-2 mb-4">
                 {['Professional Certifications', 'Digital Badges', 'Industry Recognition'].map((skill, index) => (
@@ -312,7 +368,11 @@ function App() {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="group backdrop-blur-md bg-white/20 border border-white/30 rounded-md p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
+                className={`group backdrop-blur-md border rounded-md p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-slate-800/40 border-purple-500/30' 
+                    : 'bg-white/20 border-white/30'
+                }`}
               >
                 <div className="mb-6">
                   <h3 className={`text-2xl font-bold mb-3 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-black'}`}>
@@ -377,7 +437,11 @@ function App() {
             </p>
           </div>
           
-          <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-lg p-8 shadow-lg max-w-md mx-auto">
+          <div className={`backdrop-blur-md border rounded-lg p-8 shadow-lg max-w-md mx-auto ${
+            isDarkMode 
+              ? 'bg-slate-800/40 border-purple-500/30' 
+              : 'bg-white/20 border-white/30'
+          }`}>
             <h3 className={`text-2xl font-bold mb-8 text-center ${isDarkMode ? 'text-white' : 'text-black'}`}>Connect With Me</h3>
             <div className="flex flex-col space-y-4 max-w-xs mx-auto">
               <a
