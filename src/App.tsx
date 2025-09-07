@@ -99,7 +99,7 @@ function App() {
             onClick={toggleDarkMode}
             className={`p-2 rounded-md transition-all duration-200 ${
               isDarkMode 
-                ? 'text-yellow-400 hover:bg-sky-900/30' 
+                ? 'text-yellow-400 hover:bg-stone-700/30' 
                 : 'text-sky-900 hover:bg-sky-900/10'
             }`}
           >
@@ -131,7 +131,7 @@ function App() {
               >
                 <span className="flex items-center">
                   View Projects
-                  <ChevronDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform duration-300 text-sky-200" />
+                  <ChevronDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform duration-300 text-stone-200" />
                 </span>
               </button>
               <button
@@ -235,7 +235,7 @@ function App() {
                     key={index}
                     className={`px-3 py-1 text-sm rounded-md border ${
                       ['React', 'TypeScript', 'Tailwind CSS'].includes(skill)
-                        ? isDarkMode ? 'bg-sky-900/40 border-sky-700/50 text-sky-200' : 'bg-sky-900/10 border-sky-900/30 text-sky-900'
+                        ? isDarkMode ? 'bg-stone-600/40 border-stone-500/50 text-stone-200' : 'bg-sky-900/10 border-sky-900/30 text-sky-900'
                         : isDarkMode ? 'bg-stone-600/30 border-stone-400/30 text-gray-300' : 'bg-slate-200/30 border-slate-400/30 text-slate-700'
                     }`}
                   >
@@ -258,7 +258,7 @@ function App() {
                     key={index}
                     className={`px-3 py-1 text-sm rounded-md border ${
                       ['Node.js', 'MongoDB', 'REST APIs'].includes(skill)
-                        ? isDarkMode ? 'bg-sky-900/40 border-sky-700/50 text-sky-200' : 'bg-sky-900/10 border-sky-900/30 text-sky-900'
+                        ? isDarkMode ? 'bg-stone-600/40 border-stone-500/50 text-stone-200' : 'bg-sky-900/10 border-sky-900/30 text-sky-900'
                         : isDarkMode ? 'bg-stone-600/30 border-stone-400/30 text-gray-300' : 'bg-slate-200/30 border-slate-400/30 text-slate-700'
                     }`}
                   >
@@ -281,7 +281,7 @@ function App() {
                     key={index}
                     className={`px-3 py-1 text-sm rounded-md border ${
                       ['Python', 'C++'].includes(skill)
-                        ? isDarkMode ? 'bg-sky-900/40 border-sky-700/50 text-sky-200' : 'bg-sky-900/10 border-sky-900/30 text-sky-900'
+                        ? isDarkMode ? 'bg-stone-600/40 border-stone-500/50 text-stone-200' : 'bg-sky-900/10 border-sky-900/30 text-sky-900'
                         : isDarkMode ? 'bg-stone-600/30 border-stone-400/30 text-gray-300' : 'bg-slate-200/30 border-slate-400/30 text-slate-700'
                     }`}
                   >
@@ -367,7 +367,7 @@ function App() {
                 }`}
               >
                 View My Badges
-                <ExternalLink className="w-4 h-4 ml-2 text-sky-200" />
+                <ExternalLink className="w-4 h-4 ml-2 text-stone-200" />
               </a>
             </div>
           </div>
@@ -427,7 +427,7 @@ function App() {
                           : 'bg-slate-400 hover:bg-slate-500'
                       }`}
                   >
-                    <Github className="w-4 h-4 mr-2 text-sky-200" />
+                    <Github className="w-4 h-4 mr-2 text-stone-200" />
                     Code
                   </a>
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
@@ -445,7 +445,7 @@ function App() {
                         : 'bg-slate-400 hover:bg-slate-500'
                     }`}
                   >
-                    <ExternalLink className="w-4 h-4 mr-2 text-sky-200" />
+                    <ExternalLink className="w-4 h-4 mr-2 text-stone-200" />
                     View
                   </a>
                 </div>
@@ -478,7 +478,7 @@ function App() {
                 href="mailto:badkoukadam@gmail.com"
                 className="flex items-center px-6 py-4 bg-white/30 hover:bg-white/40 border border-white/30 rounded-md transition-all duration-200 group"
               >
-                <svg className={`w-6 h-6 mr-4 ${isDarkMode ? 'text-sky-300' : 'text-sky-900'}`} viewBox="0 0 24 24" fill="currentColor">
+                <svg className={`w-6 h-6 mr-4 ${isDarkMode ? 'text-stone-300' : 'text-sky-900'}`} viewBox="0 0 24 24" fill="currentColor">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                   <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -501,7 +501,7 @@ function App() {
                 rel="noopener noreferrer"
                 className="flex items-center px-6 py-4 bg-white/30 hover:bg-white/40 border border-white/30 rounded-md transition-all duration-200 group"
               >
-                <Linkedin className={`w-6 h-6 mr-4 ${isDarkMode ? 'text-sky-300' : 'text-sky-900'}`} />
+                <Linkedin className={`w-6 h-6 mr-4 ${isDarkMode ? 'text-stone-300' : 'text-sky-900'}`} />
                 <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-slate-700'}`}>LinkedIn</span>
               </a>
               <a
@@ -510,7 +510,7 @@ function App() {
                 rel="noopener noreferrer"
                 className="flex items-center px-6 py-4 bg-white/30 hover:bg-white/40 border border-white/30 rounded-md transition-all duration-200 group"
               >
-                <Github className={`w-6 h-6 mr-4 ${isDarkMode ? 'text-sky-300' : 'text-sky-900'}`} />
+                <Github className={`w-6 h-6 mr-4 ${isDarkMode ? 'text-stone-300' : 'text-sky-900'}`} />
                 <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-slate-700'}`}>GitHub</span>
               </a>
           </div>
